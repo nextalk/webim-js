@@ -1,101 +1,101 @@
 JS API
 ==========================
 
-常用数据
+Object Structure
 -----------------------------------------------------
 
-###&user 用户              
+###&user              
 
-####属性
+####Attributes
 
-名称			|描述
+Name			|Description
 ------------------------|----
-id			|唯一 
-nick			|显示名称
-pic\_url		|头像链接地址
-default\_pic\_url	|默认头像链接地址
-status			|状态
+id			|Unique identifier 
+nick			|Screen name
+pic\_url		|Avatar url
+default\_pic\_url	|Default avatar url
+status			|Status text
 show			|['available', 'away', 'chat', 'dnd', 'invisible']
-status\_time		|状态时间
+status\_time		|Status time
 
 
-###&buddy 联系人
+###&buddy
 
-####属性
+####Attributes
 
-名称			|描述
+Name			|Description
 ------------------------|------------
-id			|唯一
-nick			|显示名称
+id			|Unique identifier
+nick			|Screen name
 presence		|["online", "offline"]
 group			|
-pic\_url		|头像链接地址
-default\_pic\_url	|默认头像链接地址
-status			|状态
+pic\_url		|Avatar url
+default\_pic\_url	|Default avatar url
+status			|Status text
 show			|['available', 'away', 'chat', 'dnd', 'invisible']
-status\_time		|状态时间
+status\_time		|Status time
 
 
-###&room 群组
+###&room
 
-####属性
+####Attributes
 
-名称			|描述
+Name			|Description
 ------------------------|------------
-id			|唯一
-nick			|显示名称
-pic\_url		|头像链接地址
-default\_pic\_url	|默认头像链接地址
-all\_count		|成员数
-count			|在线成员数
+id			|Unique identifier
+nick			|Screen name
+pic\_url		|Avatar url
+default\_pic\_url	|Default avatar url
+all\_count		|Total number of members
+count			|Total number of members online
 blocked			|
 
 
-###&member 群组成员
+###&member
 
-####成员
+####Attributes
 
-名称			|描述
+Name			|Description
 ------------------------|------------
-id			|唯一
-nick			|显示名称
+id			|Unique identifier
+nick			|Screen name
 
 
-###&message 消息
+###&message
 
-####属性
+####Attributes
 
-名称			|描述
+Name			|Description
 ------------------------|------------
 type			|['unicast', 'multicast']
-to			|接收者
-from			|发送者
-nick			|发送者名称
-style			|消息css style
-body			|消息
-timestamp		|消息时间
+to			|Receiver
+from			|Sender
+nick			|Sender screen name
+style			|Message css text
+body			|Message body
+timestamp		|Message transmission time
 
 
 ###&status
 
-####属性
+####Attributes
 
-名称			|描述
+Name			|Description
 ------------------------|------------
-to			|接收者
-show			|输入状态: typing
+to			|Receiver
+show			|Show status text, Example: typing
 
 
 ###&presence
 
-####属性
+####Attributes
 
-名称			|描述
+Name			|Description
 ------------------------|------------
 type			|['online', 'offline', 'show']
-from			|发送者
-nick			|发送者名称
-status			|状态
+from			|Sender
+nick			|Sender screen name
+status			|Status text
 show			|['available', 'away', 'chat', 'dnd', 'invisible']
 
 
@@ -104,9 +104,9 @@ Config
 
 ###webim.route
 
-####属性
+####Attributes
 
-名称			|描述
+Name			|Description
 ------------------------|----------------------------
 online			|
 offline			|
@@ -154,9 +154,9 @@ Class Instances
 
 ###im
 
-####属性
+####Attributes
 
-名称			|Type	|描述
+Name			|Type	|Description
 ------------------------|-------|------------
 user			|&user	|
 status			|status	|
@@ -165,9 +165,9 @@ history			|history|
 buddy			|buddy	|
 room			|room	|
 
-####事件
+####Events
 
-名称			|参数		|描述
+Name			|Arguments	|Description
 ------------------------|---------------|------------
 beforeOnline		|params		|
 online			|		|
@@ -179,9 +179,9 @@ sendMessage		|&message	|
 sendPresence		|&presence	|
 sendStatus		|&status	|
 
-####方法
+####Methods
 
-名称				|返回	|描述
+Name				|Return	|Description
 --------------------------------|-------|------------
 setUser( &user )		|void	|
 online( params )		|void	|
@@ -197,9 +197,9 @@ Ready switch to localStorage
 
 Temporary data storage.
 
-####方法
+####Methods
 
-名称			|返回		|描述
+Name			|Return		|Description
 ------------------------|---------------|------------
 get( key )		|		|
 set( key, value )	|		|
@@ -209,33 +209,33 @@ clear()			|		|
 
 Permanent data storage.
 
-####方法
+####Methods
 
-名称			|返回		|描述
+Name			|Return		|Description
 ------------------------|---------------|------------
 get( key )		|		|
 set( key, value )	|		|
 
-####事件
+####Events
 
-名称			|参数		|描述
+Name			|Arguments	|Description
 ------------------------|---------------|------------
 update			|key, value	|
 
 
 ###im.history
 
-####事件
+####Events
 
-名称			|参数		|描述
+Name			|Arguments	|Description
 ------------------------|---------------|------------
 unicast			|id, [&message]	|
 multicast		|id, [&message]	|
 clear			|type, id	|
 
-####方法
+####Methods
 
-名称			|返回		|描述
+Name			|Return		|Description
 ------------------------|---------------|------------
 set( [&message] )	|void		|
 get( type, id )		|[&message]	|
@@ -245,17 +245,17 @@ clear( type, id )	|void		|
 
 ###im.buddy
 
-####事件
+####Events
 
-名称			|参数		|描述
+Name			|Arguments	|Description
 ------------------------|---------------|------------
 online			|&buddy		|
 offline			|&buddy		|
 update			|&buddy		|
 
-####方法
+####Methods
 
-名称			|返回		|描述
+Name			|Return		|Description
 ------------------------|---------------|------------
 set( buddies )		|void		|
 get( id )		|&buddy		|
@@ -269,18 +269,18 @@ clear()			|void		|
 
 ###im.room
 
-####事件
+####Events
 
-名称			|参数		|描述
+Name			|Arguments	|Description
 ------------------------|---------------|------------
 join			|&room		|
 leave			|&room		|
 block			|&room		|
 unblock			|&room		|
 
-####方法
+####Methods
 
-名称			|返回		|描述
+Name			|Return		|Description
 ------------------------|---------------|------------
 get( id )		|&room		|
 set( rooms )		|void		|
