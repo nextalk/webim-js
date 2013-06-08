@@ -1,9 +1,131 @@
 JS API
 ==========================
 
-###配置
+Object Structure
+-----------------------------------------------------
 
-配置接口
+###&user              
+
+####Attributes
+
+Name			|Description
+------------------------|----
+id			|Unique identifier 
+nick			|Screen name
+pic\_url		|Avatar url
+default\_pic\_url	|Default avatar url
+status			|Status text
+show			|['available', 'away', 'chat', 'dnd', 'invisible']
+status\_time		|Status time
+
+
+###&buddy
+
+####Attributes
+
+Name			|Description
+------------------------|------------
+id			|Unique identifier
+nick			|Screen name
+presence		|["online", "offline"]
+group			|
+pic\_url		|Avatar url
+default\_pic\_url	|Default avatar url
+status			|Status text
+show			|['available', 'away', 'chat', 'dnd', 'invisible']
+status\_time		|Status time
+
+
+###&room
+
+####Attributes
+
+Name			|Description
+------------------------|------------
+id			|Unique identifier
+nick			|Screen name
+pic\_url		|Avatar url
+default\_pic\_url	|Default avatar url
+all\_count		|Total number of members
+count			|Total number of members online
+blocked			|
+
+
+###&member
+
+####Attributes
+
+Name			|Description
+------------------------|------------
+id			|Unique identifier
+nick			|Screen name
+
+
+###&message
+
+####Attributes
+
+Name			|Description
+------------------------|------------
+type			|['unicast', 'multicast']
+to			|Receiver
+from			|Sender
+nick			|Sender screen name
+style			|Message css text
+body			|Message body
+timestamp		|Message transmission time
+
+
+###&status
+
+####Attributes
+
+Name			|Description
+------------------------|------------
+to			|Receiver
+show			|Show status text, Example: typing
+
+
+###&presence
+
+####Attributes
+
+Name			|Description
+------------------------|------------
+type			|['online', 'offline', 'show']
+from			|Sender
+nick			|Sender screen name
+status			|Status text
+show			|['available', 'away', 'chat', 'dnd', 'invisible']
+
+
+Config
+-----------------------------------------------------
+
+###webim.route
+
+####Attributes
+
+Name			|Description
+------------------------|----------------------------
+online			|
+offline			|
+deactivate		|
+message			|
+presence		|
+status			|
+setting			|
+history			|
+clear			|
+download		|
+members			|
+join			|
+leave			|
+buddies			|
+notifications		|
+
+
+####Example
 
 	webim.route( {
 		online: "online.php",	
@@ -24,74 +146,151 @@ JS API
 	} );
 
 
-###创建im实例
+
+Class Instances
+-----------------------------------------------------
 
 	var im = new webim();
 
+###im
 
-###im对象相关操作
+####Attributes
 
-上线
+Name			|Type	|Description
+------------------------|-------|------------
+user			|&user	|
+status			|status	|
+setting			|setting|
+history			|history|
+buddy			|buddy	|
+room			|room	|
 
-	im.online();
+####Events
 
-离线
+Name			|Arguments	|Description
+------------------------|---------------|------------
+beforeOnline		|params		|
+online			|		|
+offline			|		|
+message			|[&message]	|
+presence		|[&presence]	|
+status			|[&status]	|
+sendMessage		|&message	|
+sendPresence		|&presence	|
+sendStatus		|&status	|
 
-	im.offline();
+####Methods
 
-发消息
-
-	im.sendMessage( {
-                type: "unicast", 
-                offline: false, 
-                to: "susan",
-                body: "sdf",
-                style: "color:red"
-        } );
-
-发现场状态
-
-	im.sendMessage( {
-                show: "away",
-                status: "I'm not here right now."
-        } );
-
-发聊天状态
-
-	im.sendStatus( {
-                to: "11",
-                show: "typing"
-        } );
-
-
-事件
-
-
-###好友信息管理
-
-	var buddy = im.buddy;
+Name				|Return	|Description
+--------------------------------|-------|------------
+setUser( &user )		|void	|
+online( params )		|void	|
+offline()			|void	|
+sendMessage( &message )		|void	|
+sendStatus( &status )		|void	|
+sendPresence( &presence )	|void	|
 
 
-###群组信息管理
+###im.status
 
-	var room = im.room;
+Ready switch to localStorage
 
-###历史聊天管理
+Temporary data storage.
 
-	var history = im.history;
+####Methods
 
-###永久配置管理
+Name			|Return		|Description
+------------------------|---------------|------------
+get( key )		|		|
+set( key, value )	|		|
+clear()			|		|
 
-	var setting = im.setting;
+###im.setting
+
+Permanent data storage.
+
+####Methods
+
+Name			|Return		|Description
+------------------------|---------------|------------
+get( key )		|		|
+set( key, value )	|		|
+
+####Events
+
+Name			|Arguments	|Description
+------------------------|---------------|------------
+update			|key, value	|
 
 
-###临时状态配置管理
+###im.history
 
-	var status = im.status;
+####Events
+
+Name			|Arguments	|Description
+------------------------|---------------|------------
+unicast			|id, [&message]	|
+multicast		|id, [&message]	|
+clear			|type, id	|
+
+####Methods
+
+Name			|Return		|Description
+------------------------|---------------|------------
+set( [&message] )	|void		|
+get( type, id )		|[&message]	|
+load( type, id )	|void		|
+clear( type, id )	|void		|
 
 
+###im.buddy
+
+####Events
+
+Name			|Arguments	|Description
+------------------------|---------------|------------
+online			|&buddy		|
+offline			|&buddy		|
+update			|&buddy		|
+
+####Methods
+
+Name			|Return		|Description
+------------------------|---------------|------------
+set( buddies )		|void		|
+get( id )		|&buddy		|
+presence( buddies )	|void		|
+update( ids )		|void		|
+load( ids )		|void		|
+complete()		|void		|
+count( conditions )	|int		|
+clear()			|void		|
 
 
+###im.room
 
+####Events
+
+Name			|Arguments	|Description
+------------------------|---------------|------------
+join			|&room		|
+leave			|&room		|
+block			|&room		|
+unblock			|&room		|
+
+####Methods
+
+Name			|Return		|Description
+------------------------|---------------|------------
+get( id )		|&room		|
+set( rooms )		|void		|
+join( id )		|void		|
+leave( id )		|void		|
+block( id )		|void		|
+unblock( id )		|void		|
+loadMember( id )	|void		|
+addMember( id, info )	|void		|
+removeMember( id, mid )	|void		|
+initMember( id )	|void		|
 
 
