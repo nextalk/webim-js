@@ -99,10 +99,10 @@ status			|状态
 show			|['available', 'away', 'chat', 'dnd', 'invisible']
 
 
-Config
+配置
 -----------------------------------------------------
 
-###webim.route
+###webim.route 接口地址
 
 ####属性
 
@@ -125,7 +125,7 @@ buddies			|
 notifications		|
 
 
-####Example
+####示例
 
 	webim.route( {
 		online: "online.php",	
@@ -147,7 +147,7 @@ notifications		|
 
 
 
-Class Instances
+对象实例
 -----------------------------------------------------
 
 	var im = new webim();
