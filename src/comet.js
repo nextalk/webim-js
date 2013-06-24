@@ -56,21 +56,21 @@ comet.prototype = {
 	_onConnect: function() {
 		var self = this;
 		self.readyState = comet.OPEN;
-		self.d( 'open', 'success' );
+		self.trigger( 'open', 'success' );
 	},
 	_onClose: function( m ) {
 		var self = this;
 		self._setting();
-		self.d( 'close', [ m ] );
+		self.trigger( 'close', [ m ] );
 	},
 	_onData: function(data) {
 		var self = this;
-		self.d( 'message', [ data ] );
+		self.trigger( 'message', [ data ] );
 	},
 	_onError: function( text ) {
 		var self = this;
 		self._setting();
-		self.d( 'error', [ text ] );
+		self.trigger( 'error', [ text ] );
 	},
 	_startPolling: function() {
 		var self = this;
