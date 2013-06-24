@@ -101,7 +101,7 @@ model( "buddy", {
 			}
 		}
 		for ( var key in status ) {
-			self.d( key, [ status[key] ] );
+			self.trigger( key, [ status[key] ] );
 		}
 		self.options.active && self.complete();
 	}

@@ -41,13 +41,13 @@ model("history", {
 		}
 	},
 	_triggerMsg: function(type, id, data){
-		//this.d("message." + id, [data]);
-		this.d(type, [id, data]);
+		//this.trigger("message." + id, [data]);
+		this.trigger(type, [id, data]);
 	},
 	clear: function(type, id){
 		var self = this, options = self.options;
 		self.data[type][id] = [];
-		self.d("clear", [type, id]);
+		self.trigger("clear", [type, id]);
 		ajax({
 			url: route( "clear" ),
 			type: "get",

@@ -17,9 +17,9 @@ ClassEvent.on = function() {
 	var proto, helper = ClassEvent.on.prototype;
 	for ( var i = 0, l = arguments.length; i < l; i++ ) {
 		proto = arguments[ i ].prototype;
-		proto.a = proto.addEventListener = helper.addEventListener;
-		proto.r = proto.removeEventListener = helper.removeEventListener;
-		proto.d = proto.dispatchEvent = helper.dispatchEvent;
+		proto.bind = proto.addEventListener = helper.addEventListener;
+		proto.unbind = proto.removeEventListener = helper.removeEventListener;
+		proto.trigger = proto.dispatchEvent = helper.dispatchEvent;
 	}
 };
 

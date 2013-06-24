@@ -28,12 +28,12 @@ extend(webim.prototype, {
 		var url = self.data.connection;
 		url = url.server + ( /\?/.test( url ) ? "&" : "?" ) + ajax.param( { ticket: url.ticket, domain: url.domain } );
 		self.connection = new comet( url );
-		self.connection.a( "connect",function( e, data ) {
-		}).a( "message", function( e, data ) {
+		self.connection.bind( "connect",function( e, data ) {
+		}).bind( "message", function( e, data ) {
 			self.handle( data );
-		}).a( "error", function( e, data ){
+		}).bind( "error", function( e, data ){
 			self._stop( "connect", "Connect Error" );
-		}).a( "close", function( e, data ) {
+		}).bind( "close", function( e, data ) {
 			self._stop( "connect", "Disconnect" );
 		});
 	},
@@ -46,7 +46,7 @@ extend(webim.prototype, {
 		window.onbeforeunload = function(){
 			self._deactivate();
 		};
-		self.d( "beforeOnline", [ post_data ] );
+		self.trigger( "beforeOnline", [ post_data ] );
 	},
 	_go: function() {
 		var self = this, data = self.data, history = self.history, buddy = self.buddy, room = self.room;
@@ -67,7 +67,7 @@ extend(webim.prototype, {
 		});
 		room.set(roomData);
 		room.options.ticket = data.connection.ticket;
-		self.d("online",[data]);
+		self.trigger("online",[data]);
 		self._createConnect();
 		//handle new messages at last
 		var n_msg = data.new_messages;
@@ -75,7 +75,7 @@ extend(webim.prototype, {
 			each(n_msg, function(n, v){
 				v["new"] = true;
 			});
-			self.d("message",[n_msg]);
+			self.trigger("message",[n_msg]);
 		}
 	},
 	_stop: function( type, msg ){
@@ -84,7 +84,7 @@ extend(webim.prototype, {
 		self.data.user.presence = "offline";
 		self.data.user.show = "unavailable";
 		self.buddy.clear();
-		self.d("offline", [type, msg] );
+		self.trigger("offline", [type, msg] );
 	},
 	//autoOnline: function(){
 	//	return !this.status.get("o");
@@ -92,7 +92,7 @@ extend(webim.prototype, {
 	_initEvents: function(){
 		var self = this, status = self.status, setting = self.setting, history = self.history, buddy = self.buddy;
 
-		self.a( "message", function( e, data ) {
+		self.bind( "message", function( e, data ) {
 			var online_buddies = [], l = data.length, uid = self.data.user.id, v, id, type;
 			//When revice a new message from router server, make the buddy online.
 			for(var i = 0; i < l; i++){
@@ -122,21 +122,21 @@ extend(webim.prototype, {
 			return d;
 		}
 
-		self.a("presence",function( e, data ) {
+		self.bind("presence",function( e, data ) {
 			buddy.presence( map( data, mapFrom ) );
 			//online.length && buddyUI.notice("buddyOnline", online.pop()["nick"]);
 		});
 	},
 	handle: function(data){
 		var self = this;
-		data.messages && data.messages.length && self.d( "message", [ data.messages ] );
-		data.presences && data.presences.length && self.d( "presence", [ data.presences ] );
-		data.statuses && data.statuses.length && self.d( "status", [ data.statuses ] );
+		data.messages && data.messages.length && self.trigger( "message", [ data.messages ] );
+		data.presences && data.presences.length && self.trigger( "presence", [ data.presences ] );
+		data.statuses && data.statuses.length && self.trigger( "status", [ data.statuses ] );
 	},
 	sendMessage: function( msg ) {
 		var self = this;
 		msg.ticket = self.data.connection.ticket;
-		self.d( "sendMessage", [ msg ] );
+		self.trigger( "sendMessage", [ msg ] );
 		ajax({
 			type:"get",
 			dataType: "jsonp",
@@ -148,7 +148,7 @@ extend(webim.prototype, {
 	sendStatus: function(msg){
 		var self = this;
 		msg.ticket = self.data.connection.ticket;
-		self.d( "sendStatus", [ msg ] );
+		self.trigger( "sendStatus", [ msg ] );
 		ajax({
 			type:"get",
 			dataType: "jsonp",
@@ -163,7 +163,7 @@ extend(webim.prototype, {
 		//save show status
 		self.data.user.show = msg.show;
 		self.status.set( "s", msg.show );
-		self.d( "sendPresence", [ msg ] );
+		self.trigger( "sendPresence", [ msg ] );
 		ajax( {
 			type:"get",
 			dataType: "jsonp",

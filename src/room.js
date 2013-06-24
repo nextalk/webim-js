@@ -21,7 +21,7 @@
 				each(self.dataHash,function(n,v){
 					if(v.blocked) list.push(v.id);
 				});
-				self.d("block",[id, list]);
+				self.trigger("block",[id, list]);
 			}
 		},
 		unblock: function(id) {
@@ -32,7 +32,7 @@
 				each(self.dataHash,function(n,v){
 					if(v.blocked) list.push(v.id);
 				});
-				self.d("unblock",[id, list]);
+				self.trigger("unblock",[id, list]);
 			}
 		},
 		set: function(d) {
@@ -48,7 +48,7 @@
 						data.push(v);
 					}
 					else extend(dataHash[id], v);
-					self.d("join",[dataHash[id]]);
+					self.trigger("join",[dataHash[id]]);
 				}
 
 			});
@@ -73,7 +73,7 @@
 					info.nick = info.nick;
 					members.push(info);
 					room.count = members.length;
-					self.d("addMember",[room_id, info]);
+					self.trigger("addMember",[room_id, info]);
 				}
 			}
 		},
@@ -88,7 +88,7 @@
 						room.count--;
 					}
 				}
-				member && self.d("removeMember",[room_id, member]);
+				member && self.trigger("removeMember",[room_id, member]);
 			}
 		},
 		initMember: function(id){
@@ -128,7 +128,7 @@
 					nick: user.nick
 				},
 				success: function( data ) {
-					//self.d("join",[data]);
+					//self.trigger("join",[data]);
 					self.initMember( id );
 					self.set( [ data ] );
 				}
@@ -149,7 +149,7 @@
 						nick: user.nick
 					}
 				});
-				self.d("leave",[d]);
+				self.trigger("leave",[d]);
 			}
 		},
 		clear:function(){

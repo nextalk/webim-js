@@ -3,13 +3,13 @@ module("buddy");
 test("webim.buddy - basic method", 9, function(){
 	stop(3000);
 	var buddy = new webim.buddy( buddies, {active: false} );
-	buddy.a("online", function(e, data){
+	buddy.bind("online", function(e, data){
 		ok(true, "online event:" + JSON.stringify(data));
 	});
-	buddy.a("offline", function(e, data){
+	buddy.bind("offline", function(e, data){
 		ok(data[0], "offline event:" + JSON.stringify(data));
 	});
-	buddy.a("update", function(e, data){
+	buddy.bind("update", function(e, data){
 		ok(data[0], "update event:" + JSON.stringify(data));
 		if(data[0]["id"] == 4)start();
 	});

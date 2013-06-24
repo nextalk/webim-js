@@ -5,7 +5,7 @@ test("webim.setting", function() {
 	var setting = new webim.setting();
 	setting.set("play_sound", false);
 	ok(!setting.get("play_sound"), "arguments key,value");
-	setting.a( "update", function( e, k, v ) {
+	setting.bind( "update", function( e, k, v ) {
 		ok( k, "update event" );
 	} );
 	setting.set({"play_sound": true});

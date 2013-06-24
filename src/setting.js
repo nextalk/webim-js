@@ -35,7 +35,7 @@ model("setting",{
 		up = checkUpdate( _old, options );
 		if ( up ) {
 			each( up,function( key,val ) {
-				self.d( "update", [ key, val ] );
+				self.trigger( "update", [ key, val ] );
 			} );
 			var _new = extend( {}, _old, options );
 			self.data = _new;

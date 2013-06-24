@@ -3,17 +3,17 @@ test("new", function() {
 	expect(4);
 	var im = new webim();
 	stop(6000);
-	im.a("beforeOnline", function(){
+	im.bind("beforeOnline", function(){
 		ok(true, "ready");
 	});
-	im.a("message", function(e, msg){
+	im.bind("message", function(e, msg){
 		ok(msg, "message");
 		im.offline();
 	});
-	im.a("online", function(){
+	im.bind("online", function(){
 		ok(true, "go");
 	});
-	im.a("offline", function(){
+	im.bind("offline", function(){
 		ok(true, "stop");
 		start();
 	});
