@@ -300,7 +300,7 @@ clear()			|void		|
 
 名称			|参数		|描述
 ------------------------|---------------|------------
-join			|&room		|加入某房间
+join			|&room		|加入某房间时触发
 leave			|&room		|离开某房间
 block			|&room		|屏蔽某房间
 unblock			|&room		|取消屏蔽
@@ -309,16 +309,16 @@ unblock			|&room		|取消屏蔽
 
 名称			|返回		|描述
 ------------------------|---------------|------------
-get( id )		|&room		|
+get( id )		|&room		|根据房间id获取房间信息
 set( rooms )		|void		|初始化房间列表
-join( id )		|void		|
-leave( id )		|void		|
-block( id )		|void		|
-unblock( id )		|void		|
+join( id )		|void		|加入房间
+leave( id )		|void		|离开房间
+block( id )		|void		|屏蔽房间
+unblock( id )		|void		|取消屏蔽
 loadMember( id )	|void		|加载房间成员信息
-addMember( id, info )	|void		|
-removeMember( id, mid )	|void		|
-initMember( id )	|void		|
+addMember( id, info )	|void		|添加成员
+removeMember( id, mid )	|void		|删除成员
+initMember( id )	|void		|初始化房间成员
 
 
 
