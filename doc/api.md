@@ -1,8 +1,12 @@
-JS API
+js库使用文档
 ==========================
 
-常用数据
+webim js库完成webim前端协议的逻辑处理，可根据此库自定义前端界面。该库提供webim上线、离线等操作，好友数据，聊天消息，群组管理等操作。
+
+数据格式
 -----------------------------------------------------
+
+类似接口协议的数据格式，作为函数方法传输。
 
 ###&user 用户              
 
@@ -76,7 +80,7 @@ body			|消息
 timestamp		|消息时间
 
 
-###&status
+###&status 输入状态
 
 ####属性
 
@@ -86,7 +90,7 @@ to			|接收者
 show			|输入状态: typing
 
 
-###&presence
+###&presence 在线状态
 
 ####属性
 
@@ -146,9 +150,25 @@ notifications		|
 	} );
 
 
-
-对象实例
+ClassEvent事件
 -----------------------------------------------------
+
+webim拥有自建的事件机制，大多数webim类都拥有事件方法
+
+####方法
+
+名称						|返回	|描述
+------------------------------------------------|-------|------------
+trigger( event, extraParameters )		|void	|触发事件
+bind( type, listener )				|void	|绑定事件
+unbind( type, listener )			|void	|取消绑定
+
+
+
+webim对象实例
+-----------------------------------------------------
+
+创建一个im对象
 
 	var im = new webim();
 
@@ -156,58 +176,57 @@ notifications		|
 
 ####属性
 
-名称			|Type	|描述
-------------------------|-------|------------
-user			|&user	|
-status			|status	|
-setting			|setting|
-history			|history|
-buddy			|buddy	|
-room			|room	|
+名称			|Type		|描述
+------------------------|---------------|------------
+user			|&user		|
+status			|status		|状态类对象
+setting			|setting	|设置类对象
+history			|history	|历史管理类对象
+buddy			|buddy		|好友管理类对象
+room			|room		|群组管理类对象
 
 ####事件
 
 名称			|参数		|描述
 ------------------------|---------------|------------
-beforeOnline		|params		|
-online			|		|
+beforeOnline		|params		|上线之前触发
+online			|		|上线后触发
 offline			|		|
-message			|[&message]	|
-presence		|[&presence]	|
-status			|[&status]	|
-sendMessage		|&message	|
-sendPresence		|&presence	|
-sendStatus		|&status	|
+message			|[&message]	|收到消息
+presence		|[&presence]	|收到在线状态
+status			|[&status]	|收到输入状态
+sendMessage		|&message	|发送消息时触发
+sendPresence		|&presence	|发送在线状态 
+sendStatus		|&status	|发送输入状态
 
 ####方法
 
 名称				|返回	|描述
 --------------------------------|-------|------------
-setUser( &user )		|void	|
-online( params )		|void	|
-offline()			|void	|
-sendMessage( &message )		|void	|
-sendStatus( &status )		|void	|
-sendPresence( &presence )	|void	|
+setUser( &user )		|void	|设置用户
+online( params )		|void	|登录
+offline()			|void	|离线
+sendMessage( &message )		|void	|发消息
+sendStatus( &status )		|void	|发输入状态
+sendPresence( &presence )	|void	|发在线状态
 
 
 ###im.status
 
-Ready switch to localStorage
 
-Temporary data storage.
+临时存储一些im状态，例如那个窗口打开了，以便刷新后保持状态
 
 ####方法
 
 名称			|返回		|描述
 ------------------------|---------------|------------
-get( key )		|		|
-set( key, value )	|		|
+get( key )		|		|根据key获取
+set( key, value )	|		|根据key设置
 clear()			|		|
 
 ###im.setting
 
-Permanent data storage.
+永久存储状态，永久存储一些用户习惯数据，例如声音是否打开
 
 ####方法
 
@@ -225,6 +244,10 @@ update			|key, value	|
 
 ###im.history
 
+历史消息管理，包括群消息和单个用户聊天消息，根据type区分
+unicast表示和用户一对一类型纪录
+multicast表示群消息
+
 ####事件
 
 名称			|参数		|描述
@@ -237,60 +260,65 @@ clear			|type, id	|
 
 名称			|返回		|描述
 ------------------------|---------------|------------
-set( [&message] )	|void		|
-get( type, id )		|[&message]	|
-load( type, id )	|void		|
-clear( type, id )	|void		|
+set( [&message] )	|void		|初始化聊天纪录
+get( type, id )		|[&message]	|根据类型和id获取，类型包括unicast,multicast
+load( type, id )	|void		|从服务器远程加载聊天纪录
+clear( type, id )	|void		|清理历史消息
 
 
 ###im.buddy
+
+联系管理类
 
 ####事件
 
 名称			|参数		|描述
 ------------------------|---------------|------------
-online			|&buddy		|
-offline			|&buddy		|
-update			|&buddy		|
+online			|&buddy		|某联系人上线
+offline			|&buddy		|某联系人下线
+update			|&buddy		|某联系人更新状态
 
 ####方法
 
 名称			|返回		|描述
 ------------------------|---------------|------------
-set( buddies )		|void		|
-get( id )		|&buddy		|
-presence( buddies )	|void		|
-update( ids )		|void		|
-load( ids )		|void		|
+set( buddies )		|void		|初始化联系人列表
+get( id )		|&buddy		|根据id获得联系人信息
+presence( buddies )	|void		|根据联系人信息更新联系人状态
+update( ids )		|void		|从服务器远程更新联系人信息
+load( ids )		|void		|从服务器远程加载联系人信息
 complete()		|void		|
-count( conditions )	|int		|
+count( conditions )	|int		|根据条件统计联系人数量
 clear()			|void		|
 
 
 ###im.room
 
+房间群组管理
+
 ####事件
 
 名称			|参数		|描述
 ------------------------|---------------|------------
-join			|&room		|
-leave			|&room		|
-block			|&room		|
-unblock			|&room		|
+join			|&room		|加入某房间
+leave			|&room		|离开某房间
+block			|&room		|屏蔽某房间
+unblock			|&room		|取消屏蔽
 
 ####方法
 
 名称			|返回		|描述
 ------------------------|---------------|------------
 get( id )		|&room		|
-set( rooms )		|void		|
+set( rooms )		|void		|初始化房间列表
 join( id )		|void		|
 leave( id )		|void		|
 block( id )		|void		|
 unblock( id )		|void		|
-loadMember( id )	|void		|
+loadMember( id )	|void		|加载房间成员信息
 addMember( id, info )	|void		|
 removeMember( id, mid )	|void		|
 initMember( id )	|void		|
+
 
 
