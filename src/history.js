@@ -60,7 +60,6 @@ model("history", {
 		var self = this, 
 		options = self.options, 
 		url = route( "download" ),
-		now = now(), 
 		f = document.createElement('iframe'), 
 		d = new Date(),
 		ar = [],
