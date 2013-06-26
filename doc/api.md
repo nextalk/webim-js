@@ -190,8 +190,8 @@ room			|room		|群组管理类对象
 名称			|参数		|描述
 ------------------------|---------------|------------
 beforeOnline		|params		|上线之前触发
-online			|		|上线后触发
-offline			|		|
+online			|data		|上线后触发
+offline			|type,msg	|
 message			|[&message]	|收到消息
 presence		|[&presence]	|收到在线状态
 status			|[&status]	|收到输入状态
