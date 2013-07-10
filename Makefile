@@ -11,6 +11,7 @@ BASE_FILES = ${SRC_DIR}/core.js\
 	${SRC_DIR}/ajax.js\
 	${SRC_DIR}/json.js\
 	${SRC_DIR}/comet.js\
+	${SRC_DIR}/socket.js\
 	${SRC_DIR}/cookie.js\
 	${SRC_DIR}/log.js\
 	${SRC_DIR}/webim.js\

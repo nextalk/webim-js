@@ -300,6 +300,7 @@ extend( webim, {
 	JSON: JSON,
 	ajax: ajax,
 	comet: comet,
+	socket: socket,
 	model: model,
 	route: route,
 	ClassEvent: ClassEvent
