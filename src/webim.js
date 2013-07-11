@@ -89,9 +89,9 @@ extend(webim.prototype, {
 		self.buddy.clear();
 		self.trigger("offline", [type, msg] );
 	},
-	//autoOnline: function(){
-	//	return !this.status.get("o");
-	//},
+	autoOnline: function(){
+		return !this.status.get("o");
+	},
 	_initEvents: function(){
 		var self = this, status = self.status, setting = self.setting, history = self.history, buddy = self.buddy;
 
