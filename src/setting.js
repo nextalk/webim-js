@@ -10,10 +10,10 @@
 */
 model("setting",{
 	data: {
-		//play_sound: true,
-		//buddy_sticky: true,
-		//minimize_layout: true,
-		//msg_auto_pop: true,
+		play_sound: true,
+		buddy_sticky: true,
+		minimize_layout: true,
+		msg_auto_pop: true,
 		blocked_rooms: []
 	}
 },{
