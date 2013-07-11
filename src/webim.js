@@ -27,7 +27,10 @@ extend(webim.prototype, {
 		var self = this;
 		var url = self.data.connection;
 		url = url.server + ( /\?/.test( url ) ? "&" : "?" ) + ajax.param( { ticket: url.ticket, domain: url.domain } );
-		self.connection = new comet( url );
+
+		self.connection = url.ws && socket.enable ? 
+			new socket( url.ws ) : new comet( url );
+
 		self.connection.bind( "connect",function( e, data ) {
 		}).bind( "message", function( e, data ) {
 			self.handle( data );

@@ -5,7 +5,7 @@
 
 function socket( url ) {
 	var self = this;
-	var ws = self.ws = new WebSocket( url, "echo-protocol" );
+	var ws = self.ws = new WebSocket( url );
 	ws.onopen = function ( e ) { 
 		self.trigger( 'open', 'success' );
 	}; 

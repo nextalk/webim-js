@@ -34,7 +34,7 @@ wsServer.on('request', function(request) {
 		return;
 	}
 
-	var connection = request.accept('echo-protocol', request.origin);
+	var connection = request.accept();
 	console.log((new Date()) + ' Connection accepted.');
 	setTimeout(function(){
 		connection.sendUTF("{\"a\": 1}");
