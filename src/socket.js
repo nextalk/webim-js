@@ -16,11 +16,13 @@ function socket( url, options ) {
 	ws.onmessage = function ( e ) { 
 		var data = e.data;
 
-		data = data ?
-			( window.JSON && window.JSON.parse ?
-			window.JSON.parse( data ) :
-			(new Function("return " + data))() ) :
-			data;
+		try{
+			data = data ?
+				( window.JSON && window.JSON.parse ?
+				window.JSON.parse( data ) :
+				(new Function("return " + data))() ) :
+				data;
+		}catch(e){};
 
 		self.trigger( 'message', [ data ] );
 	}; 
