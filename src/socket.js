@@ -3,11 +3,12 @@
  */
 
 
-function socket( url ) {
-	var self = this;
+function socket( url, options ) {
+	var self = this, options = options || {};
 	var ws = self.ws = new WebSocket( url );
 	ws.onopen = function ( e ) { 
 		self.trigger( 'open', 'success' );
+		ws.send("subscribe " + options.domain + " " + options.ticket );
 	}; 
 	ws.onclose = function ( e ) { 
 		self.trigger( 'close', [ e.data ] );

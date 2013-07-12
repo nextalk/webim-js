@@ -3,7 +3,9 @@
 $connection = array(
 	"domain" => "www.nextim.cn",
 	"ticket" => "8633d182-b7fe-42a3-8466-0c4134cfebf2",
-	"server" => "data/packets.php"
+	"server" => "data/packets.php",
+	"jsonpd" => "data/packets.php",
+	"websocket" => "ws://localhost:8080/",
 );
 
 $user = array(

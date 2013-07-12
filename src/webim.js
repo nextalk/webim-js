@@ -26,10 +26,10 @@ extend(webim.prototype, {
 	_createConnect: function() {
 		var self = this;
 		var url = self.data.connection;
-		url = url.server + ( /\?/.test( url ) ? "&" : "?" ) + ajax.param( { ticket: url.ticket, domain: url.domain } );
 
-		self.connection = url.ws && socket.enable ? 
-			new socket( url.ws ) : new comet( url );
+		self.connection = self.options.connectionType != "jsonpd" 
+			&& url.websocket && socket.enable ? 
+			new socket( url.websocket, url ) : new comet( url.server + ( /\?/.test( url ) ? "&" : "?" ) + ajax.param( { ticket: url.ticket, domain: url.domain } ) );
 
 		self.connection.bind( "connect",function( e, data ) {
 		}).bind( "message", function( e, data ) {

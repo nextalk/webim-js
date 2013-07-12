@@ -36,20 +36,26 @@ wsServer.on('request', function(request) {
 
 	var connection = request.accept();
 	console.log((new Date()) + ' Connection accepted.');
-	setTimeout(function(){
-		connection.sendUTF("{\"a\": 1}");
-	}, 1000);
+
+	var msg = '{"status": "ok", "messages": [{"type":"unicast","to":"1","from":"2","nick":"Susan","style":"color:red;","body":"Hi.","timestamp":'+((new Date()).getTime())+'},{"type":"multicast","to":"2","from":"2","nick":"Susan","style":"","body":"Someone.","timestamp":'+((new Date()).getTime())+'}], "statuses": [], "presences": [{"from": "3", "to": "1", "type": "offline"}, {"from": "2", "to": "1", "type": "show", "show": "invisible"}, {"from": "5", "to": "1", "type": "online", "show": "away"}]}';
+
+	
+	var timer;
+
 	connection.on('message', function(message) {
 		if (message.type === 'utf8') {
 			console.log('Received Message: ' + message.utf8Data);
-			connection.sendUTF(message.utf8Data);
+			timer = setInterval(function(){
+				connection.sendUTF(msg);
+			}, 5000);
 		}
 		else if (message.type === 'binary') {
 			console.log('Received Binary Message of ' + message.binaryData.length + ' bytes');
-			connection.sendBytes(message.binaryData);
+			//connection.sendBytes(message.binaryData);
 		}
 	});
 	connection.on('close', function(reasonCode, description) {
+		clearInterval( timer );
 		console.log((new Date()) + ' Peer ' + connection.remoteAddress + ' disconnected.');
 	});
 });
