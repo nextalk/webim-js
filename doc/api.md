@@ -179,6 +179,7 @@ webim对象实例
 名称			|Type		|描述
 ------------------------|---------------|------------
 user			|&user		|
+state			|		|webim状态检测 webim.BEFOREONLINE，webim.ONLINE 或者 webim.OFFLINE
 status			|status		|状态类对象
 setting			|setting	|设置类对象
 history			|history	|历史管理类对象
@@ -282,7 +283,7 @@ update			|&buddy		|某联系人更新状态
 
 名称			|返回		|描述
 ------------------------|---------------|------------
-set( buddies )		|void		|初始化联系人列表
+set( buddies )		|void		|初始化联系人列表，会触发online/offline/update事件
 get( id )		|&buddy		|根据id获得联系人信息
 presence( buddies )	|void		|根据联系人信息更新联系人状态
 update( ids )		|void		|从服务器远程更新联系人信息

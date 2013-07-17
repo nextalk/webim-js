@@ -6,7 +6,12 @@ function webim( element, options ) {
 
 ClassEvent.on( webim );
 
+webim.OFFLINE = 0;
+webim.BEFOREONLINE = 1;
+webim.ONLINE = 2;
+
 extend(webim.prototype, {
+	state: webim.OFFLINE,
 	_init: function() {
 		var self = this, options = self.options;
 		//Default user status info.
@@ -45,6 +50,7 @@ extend(webim.prototype, {
 	},
 	_ready: function( post_data ) {
 		var self = this;
+		self.state = webim.BEFOREONLINE;
 		self._unloadFun = window.onbeforeunload;
 		window.onbeforeunload = function(){
 			self._deactivate();
@@ -53,6 +59,7 @@ extend(webim.prototype, {
 	},
 	_go: function() {
 		var self = this, data = self.data, history = self.history, buddy = self.buddy, room = self.room;
+		self.state = webim.ONLINE;
 		history.options.userInfo = data.user;
 		var ids = [];
 		each( data.buddies, function(n, v) {
@@ -83,6 +90,10 @@ extend(webim.prototype, {
 	},
 	_stop: function( type, msg ){
 		var self = this;
+		if ( self.state === webim.OFFLINE ) {
+			return;
+		}
+		self.state = webim.OFFLINE;
 		window.onbeforeunload = self._unloadFun;
 		self.data.user.presence = "offline";
 		self.data.user.show = "unavailable";
@@ -181,6 +192,10 @@ extend(webim.prototype, {
 	//stranger_ids: [],
 	online: function( params ) {
 		var self = this, status = self.status;
+		if ( self.state !== webim.OFFLINE ) {
+			return;
+		}
+
 		var buddy_ids = [], room_ids = [], tabs = status.get("tabs"), tabIds = status.get("tabIds");
 		if(tabIds && tabIds.length && tabs){
 			each(tabs, function(k,v){
@@ -223,6 +238,9 @@ extend(webim.prototype, {
 	},
 	offline: function() {
 		var self = this, data = self.data;
+		if ( self.state === webim.OFFLINE ) {
+			return;
+		}
 		//self.status.set("o", true);
 		self.connection.close();
 		self._stop("offline", "offline");
