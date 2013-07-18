@@ -1,4 +1,4 @@
-var webim = window.webim, log = webim.log;
+log = webim.log;
 
 webim.route( {
 	online: _path + "data/online.php",	
