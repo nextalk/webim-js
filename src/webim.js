@@ -117,7 +117,7 @@ extend(webim.prototype, {
 				if( type == "unicast" && !v["new"] ) {
 					var msg = { id: id, presence: "online" };
 					//update nick.
-					if( v.nick ) msg.nick = v.nick;
+					if( v.nick && v.to == uid ) msg.nick = v.nick;
 					online_buddies.push( msg );
 				}
 			}
