@@ -336,7 +336,7 @@ foreach($buddies as $i => $o){
 			"nick" => $o["nick"],
 			"from" => $o["id"],
 			"style" => "",
-			"body" => "Hello world.",
+			"body" => "Hello world.![EVE](https://github.com/zzdhidden/EVE/raw/master/eve.png)(https://github.com/zzdhidden/EVE/raw/master/eve.png)",
 			"timestamp" => 1246883572400
 		),
 		array(
