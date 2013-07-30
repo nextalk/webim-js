@@ -61,7 +61,10 @@ comet.prototype = {
 	_onClose: function( m ) {
 		var self = this;
 		self._setting();
-		self.trigger( 'close', [ m ] );
+		//Delay trigger event when reflesh web site
+		setTimeout( function(){
+			self.trigger( 'close', [ m ] );
+		}, 1000 );
 	},
 	_onData: function(data) {
 		var self = this;
@@ -70,7 +73,10 @@ comet.prototype = {
 	_onError: function( text ) {
 		var self = this;
 		self._setting();
-		self.trigger( 'error', [ text ] );
+		//Delay trigger event when reflesh web site
+		setTimeout( function(){
+			self.trigger( 'error', [ text ] );
+		}, 1000 );
 	},
 	_startPolling: function() {
 		var self = this;
