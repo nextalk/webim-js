@@ -247,7 +247,7 @@ extend(webim.prototype, {
 		if ( self.state === webim.OFFLINE ) {
 			return;
 		}
-		//self.status.set("o", true);
+		self.status.set("o", true);
 		self.connection.close();
 		self._stop("offline", "offline");
 		ajax({
