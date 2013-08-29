@@ -14,6 +14,7 @@ model("setting",{
 		buddy_sticky: true,
 		minimize_layout: true,
 		msg_auto_pop: true,
+		temporary_rooms: [],
 		blocked_rooms: []
 	}
 },{

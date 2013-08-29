@@ -13,6 +13,12 @@
 		get: function(id) {
 			return this.dataHash[id];
 		},
+		all: function( onlyTemporary ){
+			if( onlyTemporary )
+				return grep(this.data, function(a){ return a.temporary });
+			else
+				return this.data;
+		},
 		block: function(id) {
 			var self = this, d = self.dataHash[id];
 			if(d && !d.blocked){
@@ -114,7 +120,7 @@
 				}
 			});
 		},
-		join:function(id){
+		join:function(id, nick, callback){
 			var self = this, options = self.options, user = options.user;
 
 			ajax({
@@ -125,12 +131,12 @@
 				data: {
 					ticket: options.ticket,
 					id: id,
-					nick: user.nick
+					nick: nick || ""
 				},
 				success: function( data ) {
-					//self.trigger("join",[data]);
 					self.initMember( id );
 					self.set( [ data ] );
+					callback && callback( data );
 				}
 			});
 		},

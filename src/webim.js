@@ -143,7 +143,22 @@ extend(webim.prototype, {
 	},
 	handle: function(data){
 		var self = this;
-		data.messages && data.messages.length && self.trigger( "message", [ data.messages ] );
+		if( data.messages && data.messages.length ){
+			var origin = data.messages
+			  , msgs = []
+			  , events = [];
+			for (var i = 0; i < origin.length; i++) {
+				var msg = origin[i];
+				if( msg.body && msg.body.indexOf("webim-event:") == 0 ){
+					msg.event = msg.body.replace("webim-event:", "").split("|,|");
+					events.push( msg );
+				} else {
+					msgs.push( msg );
+				}
+			};
+			msgs.length && self.trigger( "message", [ msgs ] );
+			events.length && self.trigger( "event", [ events ] );
+		}
 		data.presences && data.presences.length && self.trigger( "presence", [ data.presences ] );
 		data.statuses && data.statuses.length && self.trigger( "status", [ data.statuses ] );
 	},
