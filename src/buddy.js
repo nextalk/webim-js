@@ -44,7 +44,9 @@ model( "buddy", {
 		var self = this, data = self.dataHash, ids = [], v;
 		for( var key in data ) {
 			v = data[ key ];
-			if( v.incomplete && v.presence == 'online' ) {
+			//Will load offline info for show unavailable buddy.
+			//if( v.incomplete && v.presence == 'online' ) {
+			if( v.incomplete ) {
 				//Don't load repeat. 
 				v.incomplete = false;
 				ids.push( key );

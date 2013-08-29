@@ -64,19 +64,19 @@ $buddies = array(
 		"default_pic_url" => "http://mat1.gtimg.com/www/mb/images/head_50.jpg",
 		"url" => "#5",
 		"presence" => "offline",
-		"show" => "available",
+		"show" => "unavailable",
 		"status" => "I'm free.",
 		"status_time" => "10:55"
 	),
 	array(
 		"id" => 6,
-		"nick" => "Lily",
+		"nick" => "Lily W",
 		"group" => "stranger",
 		"pic_url" => "images/c.jpg",
 		"default_pic_url" => "http://mat1.gtimg.com/www/mb/images/head_50.jpg",
 		"url" => "#3",
-		"presence" => "online",
-		"show" => "available",
+		"presence" => "offline",
+		"show" => "unavailable",
 		"status" => "I'm free.",
 		"status_time" => "10:55"
 	),
