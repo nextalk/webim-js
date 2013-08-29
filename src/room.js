@@ -22,7 +22,8 @@
 		block: function(id) {
 			var self = this, d = self.dataHash[id];
 			if(d && !d.blocked){
-				d.blocked = true;
+				if( !d.temporary )
+					d.blocked = true;
 				var list = [];
 				each(self.dataHash,function(n,v){
 					if(v.blocked) list.push(v.id);
@@ -33,7 +34,8 @@
 		unblock: function(id) {
 			var self = this, d = self.dataHash[id];
 			if(d && d.blocked){
-				d.blocked = false;
+				if( !d.temporary )
+					d.blocked = false;
 				var list = [];
 				each(self.dataHash,function(n,v){
 					if(v.blocked) list.push(v.id);
