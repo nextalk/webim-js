@@ -22,11 +22,10 @@
 		block: function(id) {
 			var self = this, d = self.dataHash[id];
 			if(d && !d.blocked){
-				if( !d.temporary )
-					d.blocked = true;
+				d.blocked = true;
 				var list = [];
 				each(self.dataHash,function(n,v){
-					if(v.blocked) list.push(v.id);
+					if(!v.temporary && v.blocked) list.push(v.id);
 				});
 				self.trigger("block",[id, list]);
 			}
@@ -34,11 +33,10 @@
 		unblock: function(id) {
 			var self = this, d = self.dataHash[id];
 			if(d && d.blocked){
-				if( !d.temporary )
-					d.blocked = false;
+				d.blocked = false;
 				var list = [];
 				each(self.dataHash,function(n,v){
-					if(v.blocked) list.push(v.id);
+					if(!v.temporary && v.blocked) list.push(v.id);
 				});
 				self.trigger("unblock",[id, list]);
 			}
@@ -86,7 +84,8 @@
 			}
 		},
 		removeMember: function(room_id, member_id){
-			var room = this.dataHash[room_id];
+			var self = this
+			  , room = this.dataHash[room_id];
 			if(room){
 				var members = room.members, member;
 				for (var i = members.length; i--; i){

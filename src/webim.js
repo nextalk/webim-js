@@ -104,7 +104,12 @@ extend(webim.prototype, {
 		return !this.status.get("o");
 	},
 	_initEvents: function(){
-		var self = this, status = self.status, setting = self.setting, history = self.history, buddy = self.buddy;
+		var self = this
+		  , status = self.status
+		  , setting = self.setting
+		  , history = self.history
+		  , buddy = self.buddy
+		  , room = self.room;
 
 		self.bind( "message", function( e, data ) {
 			var online_buddies = [], l = data.length, uid = self.data.user.id, v, id, type;
@@ -128,6 +133,23 @@ extend(webim.prototype, {
 			}
 			history.set( data );
 		});
+
+		self.bind("presence",function( e, data ) {
+			buddy.presence( map( grep( data, grepPresence ), mapFrom ) );
+			data = grep( data, grepRoomPresence );
+			for (var i = data.length - 1; i >= 0; i--) {
+				var dd = data[i];
+				if( dd.type == "leave" ) {
+					room.removeMember(dd.to || dd.status, dd.from);
+				} else {
+					room.addMember(dd.to || dd.status, {
+						id: dd.from
+					  , nick: dd.nick
+					});
+				}
+			};
+		});
+
 		function mapFrom( a ) { 
 			var d = { id: a.from, presence: a.type }; 
 			if( a.show ) d.show = a.show;
@@ -136,13 +158,12 @@ extend(webim.prototype, {
 			return d;
 		}
 
-		function grepPresence( a){
+		function grepPresence( a ){
 			return a.type == "online" || a.type == "offline";
 		}
-
-		self.bind("presence",function( e, data ) {
-			buddy.presence( map( grep( data, grepPresence ), mapFrom ) );
-		});
+		function grepRoomPresence( a ){
+			return a.type == "join" || a.type == "leave";
+		}
 	},
 	handle: function(data){
 		var self = this;
