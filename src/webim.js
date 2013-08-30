@@ -136,9 +136,12 @@ extend(webim.prototype, {
 			return d;
 		}
 
+		function grepPresence( a){
+			return a.type == "online" || a.type == "offline";
+		}
+
 		self.bind("presence",function( e, data ) {
-			buddy.presence( map( data, mapFrom ) );
-			//online.length && buddyUI.notice("buddyOnline", online.pop()["nick"]);
+			buddy.presence( map( grep( data, grepPresence ), mapFrom ) );
 		});
 	},
 	handle: function(data){
