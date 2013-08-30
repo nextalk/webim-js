@@ -59,6 +59,7 @@ ${WEBIM_JS}: ${DIST_DIR}
 	@@echo "Merge file"
 	@@cat ${WEBIM_FILES} | \
 		${REPLACE} > ${WEBIM_JS};
+	@@cp ${WEBIM_JS} ../ui/
 	@@echo "	"${WEBIM_JS}
 
 ${WEBIM_MIN_JS}: ${WEBIM_JS}
