@@ -26,7 +26,7 @@ $output = array(
 	"rooms" => $rooms,
 	"new_messages" => array(
 		array(
-			"type" => "unicast",
+			"type" => "chat",
 			"to" => 1,
 			"nick" => "Susan",
 			"from" => 2,

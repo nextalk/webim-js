@@ -1,5 +1,5 @@
 /*
-history // 消息历史记录 Support unicast and multicast
+history // 消息历史记录 Support chat and grpchat
 */
 
 model("history", {
@@ -7,14 +7,14 @@ model("history", {
 	_init:function(){
 		var self = this;
 		self.data = self.data || {};
-		self.data.unicast = self.data.unicast || {};
-		self.data.multicast = self.data.multicast || {};
+		self.data.chat = self.data.chat || {};
+		self.data.grpchat = self.data.grpchat || {};
 	},
 	get: function( type, id ) {
 		return this.data[type][id];
 	},
 	set:function( addData ) {
-		var self = this, data = self.data, cache = {"unicast": {}, "multicast": {}};
+		var self = this, data = self.data, cache = {"chat": {}, "grpchat": {}};
 		addData = makeArray(addData);
 		var l = addData.length , v, id, userId = self.options.userInfo.id;
 		if(!l)return;
@@ -22,7 +22,7 @@ model("history", {
 			//for(var i in addData){
 			v = addData[i];
 			type = v.type;
-			id = type == "unicast" ? (v.to == userId ? v.from : v.to) : v.to;
+			id = type == "chat" ? (v.to == userId ? v.from : v.to) : v.to;
 			if(id && type){
 				cache[type][id] = cache[type][id] || [];
 				cache[type][id].push(v);

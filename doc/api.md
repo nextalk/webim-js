@@ -71,7 +71,7 @@ nick			|显示名称
 
 名称			|描述
 ------------------------|------------
-type			|['unicast', 'multicast']
+type			|['chat', 'grpchat']
 to			|接收者
 from			|发送者
 nick			|发送者名称
@@ -246,15 +246,15 @@ update			|key, value	|
 ###im.history
 
 历史消息管理，包括群消息和单个用户聊天消息，根据type区分
-unicast表示和用户一对一类型纪录
-multicast表示群消息
+chat表示和用户一对一类型纪录
+grpchat表示群消息
 
 ####事件
 
 名称			|参数		|描述
 ------------------------|---------------|------------
-unicast			|id, [&message]	|
-multicast		|id, [&message]	|
+chat			|id, [&message]	|
+grpchat		|id, [&message]	|
 clear			|type, id	|
 
 ####方法
@@ -262,7 +262,7 @@ clear			|type, id	|
 名称			|返回		|描述
 ------------------------|---------------|------------
 set( [&message] )	|void		|初始化聊天纪录
-get( type, id )		|[&message]	|根据类型和id获取，类型包括unicast,multicast
+get( type, id )		|[&message]	|根据类型和id获取，类型包括chat,grpchat
 load( type, id )	|void		|从服务器远程加载聊天纪录
 clear( type, id )	|void		|清理历史消息
 

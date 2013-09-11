@@ -19,7 +19,7 @@ test("webim.jsonp() - async callbacks", function() {
 		webim.jsonp({
 			url: _path + "data/error.php",
 			data: {
-				type: "unicast",
+				type: "chat",
 				id: 2
 			},
 			async: true,
@@ -34,7 +34,7 @@ test("webim.jsonp() - async callbacks", function() {
 		webim.jsonp({
 			url: _path + "data/history.php",
 			data: {
-				type: "unicast",
+				type: "chat",
 				id: 2
 			},
 			async: true,

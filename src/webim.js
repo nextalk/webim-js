@@ -63,12 +63,12 @@ extend(webim.prototype, {
 		history.options.userInfo = data.user;
 		var ids = [];
 		each( data.buddies, function(n, v) {
-			history.init( "unicast", v.id, v.history );
+			history.init( "chat", v.id, v.history );
 		});
 		buddy.set( data.buddies );
 		//rooms
 		each( data.rooms, function(n, v) {
-			history.init( "multicast", v.id, v.history );
+			history.init( "grpchat", v.id, v.history );
 		});
 		//blocked rooms
 		var b = self.setting.get("blocked_rooms"), roomData = data.rooms;
@@ -117,9 +117,9 @@ extend(webim.prototype, {
 			for(var i = 0; i < l; i++){
 				v = data[i];
 				type = v["type"];
-				id = type == "unicast" ? (v.to == uid ? v.from : v.to) : v.to;
+				id = type == "chat" ? (v.to == uid ? v.from : v.to) : v.to;
 				v["id"] = id;
-				if( type == "unicast" && !v["new"] ) {
+				if( type == "chat" && !v["new"] ) {
 					var msg = { id: id, presence: "online" };
 					//update nick.
 					if( v.nick && v.to == uid ) msg.nick = v.nick;

@@ -55,7 +55,7 @@ status\_time		|string	|false	|用户状态时间
 ####示例
 
 	{
-	        "type": "unicast",
+	        "type": "chat",
 	        "to": "susan",
 	        "from": "jack",
 		"nick": "Jack",
@@ -66,7 +66,7 @@ status\_time		|string	|false	|用户状态时间
 
 参数名			|类型	|必需	|描述
 ------------------------|-------|-------|------------
-type			|string	|true	|记录类型，unicast: 一对一, multicast: 多对多群组, broadcast: 全站广播
+type			|string	|true	|记录类型，chat: 一对一, grpchat: 多对多群组, broadcast: 全站广播
 to			|string	|true	|接收消息用户ID
 from			|string	|true	|发送消息用户ID
 nick			|string	|true	|发送消息用户名称
@@ -318,13 +318,13 @@ error\_msg		|string	|false	|错误消息 Not Found, Forbidden, Not Authorized, I
 
         {
                 id: "susan",
-		type: "unicast"
+		type: "chat"
         }
 
 参数名			|类型	|必需	|描述
 ------------------------|-------|-------|------------
 ids			|string	|true	|需要取得的历史记录联系人或群组列表
-type			|string	|true	|取得历史记录类型，unicast: 联系人, multicast: 群组
+type			|string	|true	|取得历史记录类型，chat: 联系人, grpchat: 群组
 
 
 ####返回参数
@@ -338,7 +338,7 @@ type			|string	|true	|取得历史记录类型，unicast: 联系人, multicast: 
 
 	&connection
         {
-                type: "unicast", 
+                type: "chat", 
                 offline: false, 
                 to: "susan",
                 body: "sdf",
@@ -347,7 +347,7 @@ type			|string	|true	|取得历史记录类型，unicast: 联系人, multicast: 
 
 参数名			|类型	|必需	|描述
 ------------------------|-------|-------|------------
-type			|string	|true	|记录类型，unicast: 一对一, multicast: 多对多群组, broadcast: 全站广播
+type			|string	|true	|记录类型，chat: 一对一, grpchat: 多对多群组, broadcast: 全站广播
 offline			|bool	|false	|是否离线消息，默认false
 to			|string	|true	|接收消息用户ID
 style			|string	|false	|消息css样式

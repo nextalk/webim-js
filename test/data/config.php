@@ -321,17 +321,17 @@ $members = array(
 );
 
 $histories = array(
-	"unicast" => array(
+	"chat" => array(
 		),
-		"multicast" => array(
+		"grpchat" => array(
 			)
 		);
 
 foreach($buddies as $i => $o){
 	$buddies[$i]['uid'] = $buddies[$i]['id'];
-	$histories["unicast"][$o["id"]] = array(
+	$histories["chat"][$o["id"]] = array(
 		array(
-			"type" => "unicast",
+			"type" => "chat",
 			"to" => 1,
 			"nick" => $o["nick"],
 			"from" => $o["id"],
@@ -340,7 +340,7 @@ foreach($buddies as $i => $o){
 			"timestamp" => 1246883572400
 		),
 		array(
-			"type" => "unicast",
+			"type" => "chat",
 			"nick" => "Jack",
 			"from" => 1,
 			"to" => $o["id"],
@@ -352,9 +352,9 @@ foreach($buddies as $i => $o){
 }
 
 foreach($rooms as $i => $o){
-	$histories["multicast"][$o["id"]] = array(
+	$histories["grpchat"][$o["id"]] = array(
 		array(
-			"type" => "multicast",
+			"type" => "grpchat",
 			"nick" => "Jack",
 			"from" => 1,
 			"to" => $o["id"],
@@ -363,7 +363,7 @@ foreach($rooms as $i => $o){
 			"timestamp" => 1246883572400
 		),
 		array(
-			"type" => "unicast",
+			"type" => "chat",
 			"nick" => "Susan",
 			"from" => 2,
 			"to" => $o["id"],

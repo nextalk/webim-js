@@ -67,7 +67,7 @@ nick			|Screen name
 
 Name			|Description
 ------------------------|------------
-type			|['unicast', 'multicast']
+type			|['chat', 'grpchat']
 to			|Receiver
 from			|Sender
 nick			|Sender screen name
@@ -229,8 +229,8 @@ update			|key, value	|
 
 Name			|Arguments	|Description
 ------------------------|---------------|------------
-unicast			|id, [&message]	|
-multicast		|id, [&message]	|
+chat			|id, [&message]	|
+grpchat		|id, [&message]	|
 clear			|type, id	|
 
 ####Methods

@@ -37,7 +37,7 @@ wsServer.on('request', function(request) {
 	var connection = request.accept();
 	console.log((new Date()) + ' Connection accepted.');
 
-	var msg = '{"status": "ok", "messages": [{"type":"unicast","to":"1","from":"2","nick":"Susan","style":"color:red;","body":"Hi.","timestamp":'+((new Date()).getTime())+'},{"type":"multicast","to":"2","from":"2","nick":"Susan","style":"","body":"Someone.","timestamp":'+((new Date()).getTime())+'}], "statuses": [], "presences": [{"from": "3", "to": "1", "type": "offline"}, {"from": "2", "to": "1", "type": "show", "show": "invisible"}, {"from": "5", "to": "1", "type": "online", "show": "away"}]}';
+	var msg = '{"status": "ok", "messages": [{"type":"chat","to":"1","from":"2","nick":"Susan","style":"color:red;","body":"Hi.","timestamp":'+((new Date()).getTime())+'},{"type":"grpchat","to":"2","from":"2","nick":"Susan","style":"","body":"Someone.","timestamp":'+((new Date()).getTime())+'}], "statuses": [], "presences": [{"from": "3", "to": "1", "type": "offline"}, {"from": "2", "to": "1", "type": "show", "show": "invisible"}, {"from": "5", "to": "1", "type": "online", "show": "away"}]}';
 
 	
 	var timer;
