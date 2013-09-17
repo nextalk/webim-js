@@ -51,10 +51,10 @@ extend(webim.prototype, {
 	_ready: function( post_data ) {
 		var self = this;
 		self.state = webim.BEFOREONLINE;
-		self._unloadFun = window.onbeforeunload;
-		window.onbeforeunload = function(){
-			self._deactivate();
-		};
+		//self._unloadFun = window.onbeforeunload;
+		//window.onbeforeunload = function(){
+		//	self._deactivate();
+		//};
 		self.trigger( "beforeOnline", [ post_data ] );
 	},
 	_go: function() {
@@ -94,7 +94,7 @@ extend(webim.prototype, {
 			return;
 		}
 		self.state = webim.OFFLINE;
-		window.onbeforeunload = self._unloadFun;
+		//window.onbeforeunload = self._unloadFun;
 		self.data.user.presence = "offline";
 		self.data.user.show = "unavailable";
 		self.buddy.clear();
