@@ -159,7 +159,7 @@ extend(webim.prototype, {
 		}
 
 		function grepPresence( a ){
-			return a.type == "online" || a.type == "offline";
+			return a.type == "online" || a.type == "offline" || a.type == "show";
 		}
 		function grepRoomPresence( a ){
 			return a.type == "join" || a.type == "leave";
