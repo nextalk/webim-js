@@ -41,12 +41,12 @@ model("setting",{
 			var _new = extend( {}, _old, options );
 			self.data = _new;
 			ajax( {
-				type: 'get',
+				type: 'post',
 				url: route( "setting" ),
-				dataType: 'jsonp',
 				cache: false,
 				data: {
-					data: JSON.stringify( _new )
+					data: JSON.stringify( _new ),
+					csrf_token: webim.csrf_token
 				}
 			} );
 		}

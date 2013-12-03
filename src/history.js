@@ -50,10 +50,9 @@ model("history", {
 		self.trigger("clear", [type, id]);
 		ajax({
 			url: route( "clear" ),
-			type: "get",
+			type: "post",
 			cache: false,
-			dataType: "jsonp",
-			data:{ type: type, id: id }
+			data:{ type: type, id: id, csrf_token: webim.csrf_token }
 		});
 	},
 	download: function(type, id){
@@ -86,8 +85,7 @@ model("history", {
 			url: route( "history" ),
 			cache: false,
 			type: "get",
-			dataType: "jsonp",
-			data:{type: type, id: id},
+			data:{type: type, id: id, csrf_token: webim.csrf_token},
 			//context: self,
 			success: function(data){
 				self.init(type, id, data);

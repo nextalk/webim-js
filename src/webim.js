@@ -6,6 +6,7 @@ function webim( element, options ) {
 
 ClassEvent.on( webim );
 
+webim.csrf_token = "";
 webim.OFFLINE = 0;
 webim.BEFOREONLINE = 1;
 webim.ONLINE = 2;
@@ -21,6 +22,9 @@ extend(webim.prototype, {
 				show: 'unavailable'
 			}
 		};
+
+		ajax.settings.dataType = options.jsonp ? "jsonp" : "json";
+
 		self.status = new webim.status();
 		self.setting = new webim.setting();
 		self.buddy = new webim.buddy();
@@ -191,11 +195,10 @@ extend(webim.prototype, {
 		msg.ticket = self.data.connection.ticket;
 		self.trigger( "sendMessage", [ msg ] );
 		ajax({
-			type:"get",
-			dataType: "jsonp",
+			type:"post",
 			cache: false,
 			url: route( "message" ),
-			data: msg,
+			data: extend({csrf_token: webim.csrf_token}, msg),
 			success: callback,
 			error: callback
 		});
@@ -205,11 +208,10 @@ extend(webim.prototype, {
 		msg.ticket = self.data.connection.ticket;
 		self.trigger( "sendStatus", [ msg ] );
 		ajax({
-			type:"get",
-			dataType: "jsonp",
+			type:"post",
 			cache: false,
 			url: route( "status" ),			
-			data: msg,
+			data: extend({csrf_token: webim.csrf_token}, msg),
 			success: callback,
 			error: callback
 		});
@@ -222,11 +224,10 @@ extend(webim.prototype, {
 		self.status.set( "s", msg.show );
 		self.trigger( "sendPresence", [ msg ] );
 		ajax( {
-			type:"get",
-			dataType: "jsonp",
+			type:"post",
 			cache: false,
 			url: route( "presence" ),			
-			data: msg,
+			data: extend({csrf_token: webim.csrf_token}, msg),
 			success: callback,
 			error: callback
 		} );
@@ -252,6 +253,7 @@ extend(webim.prototype, {
 			//stranger_ids: self.stranger_ids.join(","),
 			buddy_ids: buddy_ids.join(","),
 			room_ids: room_ids.join(","),
+			csrf_token: webim.csrf_token,
 			show: status.get("s") || "available"
 		}, params);
 		self._ready(params);
@@ -261,7 +263,6 @@ extend(webim.prototype, {
 
 		ajax({
 			type:"get",
-			dataType: "jsonp",
 			cache: false,
 			url: route( "online" ),
 			data: params,
@@ -291,11 +292,11 @@ extend(webim.prototype, {
 		self._stop("offline", "offline");
 		ajax({
 			type:"get",
-			dataType: "jsonp",
 			cache: false,
 			url: route( "offline" ),
 			data: {
 				status: 'offline',
+				csrf_token: webim.csrf_token,
 				ticket: data.connection.ticket
 			}
 		});
@@ -306,11 +307,11 @@ extend(webim.prototype, {
 		if( !data || !data.connection || !data.connection.ticket ) return;
 		ajax( {
 			type:"get",
-			dataType: "jsonp",
 			cache: false,
 			url: route( "deactivate" ),
 			data: {
-				ticket: data.connection.ticket
+				ticket: data.connection.ticket,
+				csrf_token: webim.csrf_token
 			}
 		} );
 	}

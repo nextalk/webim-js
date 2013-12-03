@@ -111,10 +111,10 @@
 				type: "get",
 				cache: false,
 				url: route( "members" ),
-				dataType: "jsonp",
 				data: {
 					ticket: options.ticket,
-					id: id
+					id: id,
+					csrf_token: webim.csrf_token
 				},
 				success: function(data){
 					self.addMember(id, data);
@@ -125,14 +125,14 @@
 			var self = this, options = self.options, user = options.user;
 
 			ajax({
-				type: "get",
+				type: "post",
 				cache: false,
 				url: route( "join" ),
-				dataType: "jsonp",
 				data: {
 					ticket: options.ticket,
 					id: id,
-					nick: nick || ""
+					nick: nick || "", 
+					csrf_token: webim.csrf_token
 				},
 				success: function( data ) {
 					self.initMember( id );
@@ -146,14 +146,14 @@
 			if(d){
 				d.initMember = false;
 				ajax({
-					type: "get",
+					type: "post",
 					cache: false,
 					url: route( "leave" ),
-					dataType: "jsonp",					
 					data: {
 						ticket: options.ticket,
 						id: id,
-						nick: user.nick
+						nick: user.nick, 
+						csrf_token: webim.csrf_token
 					}
 				});
 				self.trigger("leave",[d]);

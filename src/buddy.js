@@ -77,8 +77,7 @@ model( "buddy", {
 				type: "get",
 				url: route( "buddies" ),
 				cache: false,
-				dataType: "jsonp",
-				data:{ ids: ids.join(",") },
+				data:{ ids: ids.join(","), csrf_token: webim.csrf_token },
 				context: self,
 				success: self.set
 			} );
