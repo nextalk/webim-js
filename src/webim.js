@@ -262,7 +262,7 @@ extend(webim.prototype, {
 		status.set("s", params.show);
 
 		ajax({
-			type:"get",
+			type:"post",
 			cache: false,
 			url: route( "online" ),
 			data: params,
@@ -291,7 +291,7 @@ extend(webim.prototype, {
 		self.connection.close();
 		self._stop("offline", "offline");
 		ajax({
-			type:"get",
+			type:"post",
 			cache: false,
 			url: route( "offline" ),
 			data: {
