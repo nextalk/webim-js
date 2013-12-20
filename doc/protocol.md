@@ -434,6 +434,15 @@ blocked\_rooms		|array	|false	|被屏蔽的群组
 	[{"text":"Susan wants to be friends with you.",
 		"link":"http://test.com/s?id=5"}]
 
+###菜单
+
+
+	_IMC.menu = [
+		{"title":"博客", icon: "blog.gif", "link":"http://test.com/blog"},
+		{"title":"相册", icon: "album.gif", "link":"http://test.com/album"}
+	]
+
+
 ###陌生人
 
 在 **POST webim/online** 中
