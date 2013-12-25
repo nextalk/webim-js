@@ -84,7 +84,13 @@ extend(webim.prototype, {
 		self.trigger("online",[data]);
 		self._createConnect();
 		//handle new messages at last
-		var n_msg = data.new_messages;
+		var n_msg = [];
+		if( data.new_messages ) {
+			n_msg = n_msg.concat( data.new_messages );
+		}
+		if( data.offline_messages ) {
+			n_msg = n_msg.concat( data.offline_messages );
+		}
 		if(n_msg && n_msg.length){
 			each(n_msg, function(n, v){
 				v["new"] = true;
