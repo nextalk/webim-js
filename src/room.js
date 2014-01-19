@@ -160,6 +160,9 @@
 			}
 		},
 		clear:function(){
+			var self = this;
+			self.data = [];
+			self.dataHash = {};
 		}
 	} );
 } )();
