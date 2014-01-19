@@ -10,6 +10,11 @@ model("history", {
 		self.data.chat = self.data.chat || {};
 		self.data.grpchat = self.data.grpchat || {};
 	},
+	clean: function(){
+		var self = this;
+		self.data.chat = {};
+		self.data.grpchat = {};
+	},
 	get: function( type, id ) {
 		return this.data[type][id];
 	},

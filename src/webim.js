@@ -109,6 +109,7 @@ extend(webim.prototype, {
 		self.data.user.show = "unavailable";
 		self.buddy.clear();
 		self.room.clear();
+		self.history.clean();
 		self.trigger("offline", [type, msg] );
 	},
 	autoOnline: function(){
