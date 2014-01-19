@@ -66,6 +66,9 @@ model( "buddy", {
 			//Presence in [show,offline,online]
 			v.presence = v.presence == "offline" ? "offline" : "online";
 			v.incomplete = !dataHash[ v.id ];
+			if( !v.group && v.id ) {
+				v.group = v.id.indexOf("vid:") == 0 ? "visitor" : v.group;
+			}
 		}
 		self.set( data );
 	},
