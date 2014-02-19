@@ -48,6 +48,11 @@ function ajax( origSettings ) {
 		}
 	}
 
+	//Only GET when jsonp
+	if( s.dataType === "jsonp" ) {
+		s.type = "GET";
+	}
+
 	var jsonp, status, data, type = s.type.toUpperCase(), noContent = rnoContent.test(type), head, proxy, win = window, script;
 
 	s.url = s.url.replace( rhash, "" );
