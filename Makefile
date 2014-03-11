@@ -26,7 +26,7 @@ WEBIM_FILES = ${SRC_DIR}/intro.js\
 	${BASE_FILES}\
 	${SRC_DIR}/outro.js
 
-WEBIM_VER = `cat ${PREFIX}/version.txt`
+WEBIM_VER = `cat ${PREFIX}/version`
 DATE=`git log -n 1  --pretty=format:%ad`
 COMMIT=`git log -n 1 --pretty=format:%H`
 

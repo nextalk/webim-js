@@ -2,7 +2,6 @@
  * websocket
  */
 
-
 function socket( url, options ) {
 	var self = this, options = options || {};
 	var ws = self.ws = new WebSocket( url );

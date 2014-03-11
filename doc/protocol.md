@@ -15,7 +15,7 @@ js库接口协议
 	{
 	        "domain": "www.uchome.com",
 	        "ticket": "8633d182-b7fe-42a3-8466-0c4134cfebf2",
-	        "server": "http://ucim.webim20.cn:8000/packets"
+	        "server": "http://nextalk.im:8000/packets"
 	}
 
 

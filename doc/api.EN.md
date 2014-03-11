@@ -57,8 +57,9 @@ blocked			|
 
 Name			|Description
 ------------------------|------------
-id			|Unique identifier
+id			    |Unique identifier
 nick			|Screen name
+show   			|Presence
 
 
 ###&message
