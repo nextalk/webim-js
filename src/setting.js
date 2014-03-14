@@ -13,9 +13,7 @@ model("setting",{
 		play_sound: true,
 		buddy_sticky: true,
 		minimize_layout: true,
-		msg_auto_pop: true,
-		temporary_rooms: [],
-		blocked_rooms: []
+		msg_auto_pop: true
 	}
 },{
 	_init:function(){
