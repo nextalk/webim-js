@@ -26,7 +26,6 @@ Response:
      "nick":"TestRoom",
      "temporary":true,
      "pic_url":"images/chat.png",
-     "all_count":1
     }
 
     
