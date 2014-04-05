@@ -449,7 +449,7 @@ blocked\_rooms		|array	|false	|被屏蔽的群组
 
 添加参数
 
-	{stranger_ids: "1,2,5"}
+	{chatlink_ids: "1,2,5"}
 
 无添加返回
 
