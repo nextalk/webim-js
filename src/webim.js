@@ -74,12 +74,13 @@ extend(webim.prototype, {
 		each( data.rooms, function(n, v) {
 			history.init( "grpchat", v.id, v.history );
 		});
+        //FIXED BY ery
 		//blocked rooms
-		var b = self.setting.get("blocked_rooms"), roomData = data.rooms;
-		isArray(b) && roomData && each(b,function(n,v){
-			roomData[v] && (roomData[v].blocked = true);
-		});
-		room.set(roomData);
+		//var b = self.setting.get("blocked_rooms"), roomData = data.rooms;
+		//isArray(b) && roomData && each(b,function(n,v){
+		//	roomData[v] && (roomData[v].blocked = true);
+		//});
+		room.set(data.rooms);
 		room.options.ticket = data.connection.ticket;
 		self.trigger("online",[data]);
 		self._createConnect();
@@ -150,15 +151,12 @@ extend(webim.prototype, {
 			buddy.presence( map( grep( data, grepPresence ), mapFrom ) );
 			data = grep( data, grepRoomPresence );
 			for (var i = data.length - 1; i >= 0; i--) {
-				var dd = data[i];
-				if( dd.type == "leave" ) {
-					room.removeMember(dd.to || dd.status, dd.from);
-				} else {
-					room.addMember(dd.to || dd.status, {
-						id: dd.from
-					  , nick: dd.nick
-					});
-				}
+                /*
+                 * Redsigned by ery
+                 * 
+                 * Load all members when leaved
+                 */
+                room.onPresence(data[i]);
 			};
 		});
 
@@ -174,7 +172,7 @@ extend(webim.prototype, {
 			return a.type == "online" || a.type == "offline" || a.type == "show";
 		}
 		function grepRoomPresence( a ){
-			return a.type == "join" || a.type == "leave";
+			return a.type == "invite" || a.type == "join" || a.type == "leave";
 		}
 	},
 	handle: function(data){
