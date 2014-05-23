@@ -37,7 +37,8 @@ model("history", {
 			for (var id in cache[type]){
 				var v = cache[type][id];
 				if(data[type][id]){
-					data[type][id] = data[type][id].concat(v);
+                    //data[type][id] = data[type][id].concat(v);
+                    data[type][id] = [].concat(data[type][id]).concat(v); //Fix memory released in ie9
 					self._triggerMsg(type, id, v);
 				}else{
 					self.load(type, id);
