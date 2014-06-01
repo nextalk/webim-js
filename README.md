@@ -1,4 +1,4 @@
-WebIM javascript lib
+WebIM Core lib
 =====================================================
 
 

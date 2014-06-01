@@ -22,11 +22,14 @@ extend(webim.prototype, {
 				show: 'unavailable'
 			}
 		};
+        self.models = {}
+
 
 		ajax.settings.dataType = options.jsonp ? "jsonp" : "json";
 
 		self.status = new webim.status();
 		self.setting = new webim.setting();
+        self.models['presence'] = new webim.presence();
 		self.buddy = new webim.buddy();
 		self.room = new webim.room(null, self.data );
 		self.history = new webim.history(null, self.data );
@@ -62,14 +65,28 @@ extend(webim.prototype, {
 		self.trigger( "beforeOnline", [ post_data ] );
 	},
 	_go: function() {
-		var self = this, data = self.data, history = self.history, buddy = self.buddy, room = self.room;
+		var self = this, data = self.data, history = self.history, buddy = self.buddy, room = self.room, presence = self.models['presence'];
 		self.state = webim.ONLINE;
 		history.options.userInfo = data.user;
 		var ids = [];
+        //buddies
 		each( data.buddies, function(n, v) {
 			history.init( "chat", v.id, v.history );
 		});
 		buddy.set( data.buddies );
+
+        //added in version 5.5
+        //presences
+        if(data.presences) { 
+            presence.set(data.presences); 
+        } else {
+            presence.set(map(data.buddies, function(b) { 
+                var p = {};
+                p[b.id] = b.show;
+                return p; 
+            }));
+        }
+
 		//rooms
 		each( data.rooms, function(n, v) {
 			history.init( "grpchat", v.id, v.history );
@@ -109,6 +126,7 @@ extend(webim.prototype, {
 		self.data.user.presence = "offline";
 		self.data.user.show = "unavailable";
 		self.buddy.clear();
+        self.models['presence'].clear();
 		self.room.clear();
 		self.history.clean();
 		self.trigger("offline", [type, msg] );
@@ -122,6 +140,7 @@ extend(webim.prototype, {
 		  , setting = self.setting
 		  , history = self.history
 		  , buddy = self.buddy
+          , presence = self.models['presence']
 		  , room = self.room;
 
 		self.bind( "message", function( e, data ) {
@@ -323,6 +342,7 @@ extend(webim.prototype, {
 function idsArray( ids ) {
 	return ids && ids.split ? ids.split( "," ) : ( isArray( ids ) ? ids : ( parseInt( ids ) ? [ parseInt( ids ) ] : [] ) );
 }
+
 function model( name, defaults, proto ) {
 	function m( data, options ) {
 		var self = this;
