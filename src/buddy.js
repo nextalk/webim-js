@@ -89,9 +89,9 @@ model( "buddy", {
 	set: function( addData ) {
 		var self = this, data = self.data, dataHash = self.dataHash, status = {};
 		addData = addData || [];
-		var l = addData.length , v, type, add;
-		//for(var i = 0; i < l; i++){
-		for(var i in addData){
+		var l = addData.length , v, type, add, id;
+		for(var i = 0; i < l; i++){
+		//for(var i in addData){
 			v = addData[i], id = v.id;
 			if(id){
 				if(!dataHash[id]){
