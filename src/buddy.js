@@ -5,12 +5,27 @@
 model( "buddy", {
 	active: true
 }, {
-	_init: function(){
+	_init: function() {
 		var self = this;
 		self.data = self.data || [];
 		self.dataHash = {};
 		self.set( self.data );
 	},
+    remove: function(id) {
+		var self = this;
+        var v = self.get(id);
+        if(!v) return;
+        ajax( {
+            type: "post",
+            url: route( "remove_buddy" ),
+            cache: false,
+            data:{ id: id, csrf_token: webim.csrf_token },
+            //context: self,
+            success: function(data) { }
+        } );
+        self.trigger( "unsubscribe", [ [v] ] );
+        delete self.dataHash[id];
+    },
 	clear:function() {
 		var self =this;
 		self.data = [];
