@@ -166,7 +166,7 @@ extend(webim.prototype, {
 			history.set( data );
 		});
 
-		self.bind("presence",function( e, data ) {
+		self.bind("presence", function( e, data ) {
 			buddy.presence( map( grep( data, grepPresence ), mapFrom ) );
 			data = grep( data, grepRoomPresence );
 			for (var i = data.length - 1; i >= 0; i--) {
@@ -191,7 +191,7 @@ extend(webim.prototype, {
 			return a.type == "online" || a.type == "offline" || a.type == "show";
 		}
 		function grepRoomPresence( a ){
-			return a.type == "invite" || a.type == "join" || a.type == "leave";
+			return a.type == "grponline" || a.type == "grpoffline" || a.type == "invite" || a.type == "join" || a.type == "leave";
 		}
 	},
 	handle: function(data){

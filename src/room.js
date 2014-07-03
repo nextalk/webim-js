@@ -182,8 +182,8 @@
 
         onPresence: function(presence) {
 			var self = this, tp = presence.type;
-            if( (tp == "join") || (tp == "leave") ) {
-                var roomId = presence.to || presence.status;
+            if(presence.to && self.dataHash[presence.to]) {
+                var roomId = presence.to;
                 var oneRoom = this.dataHash[roomId];
                 if(oneRoom && oneRoom.memberLoaded) {
                     //alert("reloading " + roomId);
@@ -191,8 +191,14 @@
                 }
                 if(tp == "join") {
                     self.trigger("memberJoined", [roomId, presence]);
-                } else {
+                } else if(tp == "leave") {
                     self.trigger("memberLeaved", [roomId, presence]);
+                } else if(tp == "grponline") {
+                    self.trigger("memberOnline", [roomId, presence]);
+                } else if(tp == "grpoffline") {
+                    self.trigger("memberOffline", [roomId, presence]);
+                } else { //do nothing
+
                 }
             }
         },
