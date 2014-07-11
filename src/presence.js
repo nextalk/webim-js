@@ -31,6 +31,15 @@ model( "presence", {
         }
     },
 
+    update: function(list) {
+        var self = this, data = {};
+        for(var i = 0; i < list.length; i++) {
+            var p = list[i];
+            data[p.from] = p.show;
+        }
+        self.set(data);
+    },
+
     clear: function() {
         var self = this;
         self.data = [];      

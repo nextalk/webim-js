@@ -167,7 +167,10 @@ extend(webim.prototype, {
 		});
 
 		self.bind("presence", function( e, data ) {
-			buddy.presence( map( grep( data, grepPresence ), mapFrom ) );
+            var pl = grep( data, grepPresence );
+			buddy.presence( map( pl, mapFrom ) );
+            //fix issue #35
+            presence.update(pl);
 			data = grep( data, grepRoomPresence );
 			for (var i = data.length - 1; i >= 0; i--) {
                 /*
