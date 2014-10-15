@@ -15,11 +15,13 @@
 //}
 
 model( "status", {
-	key:"_webim"
+	key:"_webim",
+    storage: "local",
+    domain: document.domain
 }, {
 	_init:function() {
 		var self = this, data = self.data, key = self.options.key;
-		var store = window.localStorage;
+		var store = (self.options.storage == "local") && window.localStorage;
 		if( store ) {
 			//无痕浏览模式
 			try {
@@ -59,12 +61,12 @@ model( "status", {
 		this._save( {} );
 	},
 	_save: function( data ) {
-		var self = this, key = self.options.key;
+		var self = this, key = self.options.key, domain = self.options.domain;
 		self.data = data;
 		data = JSON.stringify( data );
 		self.store ? self.store.setItem( key, data ) : cookie( key, data, {
 			path: '/',
-			domain: document.domain
+			domain: domain
 		} );
 	}
 } );

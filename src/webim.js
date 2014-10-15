@@ -16,7 +16,7 @@ extend(webim.prototype, {
 	_init: function() {
 		var self = this, options = self.options;
 		//Default user status info.
-		self.data = { 
+		self.data = {
 			user: {
 				presence: 'offline', 
 				show: 'unavailable'
@@ -27,7 +27,7 @@ extend(webim.prototype, {
 
 		ajax.settings.dataType = options.jsonp ? "jsonp" : "json";
 
-		self.status = new webim.status();
+		self.status = new webim.status(null, options);
 		self.setting = new webim.setting();
         self.models['presence'] = new webim.presence();
 		self.buddy = new webim.buddy();
