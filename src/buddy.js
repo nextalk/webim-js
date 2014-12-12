@@ -101,6 +101,22 @@ model( "buddy", {
 			} );
 		}
 	},
+	search: function( val, callback ) {
+		var self = this, options = self.options;
+		//5.8 remove seach
+		function succ(data) {
+			self.set(data);
+			setTimeout(callback, 500);
+		}
+		ajax( {
+			type: "get",
+			url: route( "search" ),
+			cache: false,
+			data:{ nick: val, csrf_token: webim.csrf_token },
+			context: self,
+			success: succ
+		} );
+	},
 	set: function( addData ) {
 		var self = this, data = self.data, dataHash = self.dataHash, status = {};
 		addData = addData || [];
