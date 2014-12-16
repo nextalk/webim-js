@@ -109,7 +109,7 @@ model( "buddy", {
 			setTimeout(callback, 500);
 		}
 		ajax( {
-			type: "get",
+			type: "post",
 			url: route( "search" ),
 			cache: false,
 			data:{ nick: val, csrf_token: webim.csrf_token },
