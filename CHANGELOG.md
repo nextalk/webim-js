@@ -4,6 +4,7 @@ CHANGELOG
 5.8
 ---------------------------------
 buddy.js: add 'search' function
+mobile.js: detect mobile device
 
 5.5
 ---------------------------------

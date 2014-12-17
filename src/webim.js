@@ -395,5 +395,6 @@ extend( webim, {
 	socket: socket,
 	model: model,
 	route: route,
-	ClassEvent: ClassEvent
+	ClassEvent: ClassEvent,
+	isMobile: isMobile
 } );
